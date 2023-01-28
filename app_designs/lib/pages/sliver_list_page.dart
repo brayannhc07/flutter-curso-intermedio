@@ -1,4 +1,6 @@
+import 'package:app_designs/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SliverListPage extends StatelessWidget {
   const SliverListPage({Key? key}) : super(key: key);
@@ -22,6 +24,8 @@ class _BotonNewList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return ButtonTheme(
       minWidth: size.width * 0.9,
       height: 150,
@@ -29,13 +33,15 @@ class _BotonNewList extends StatelessWidget {
           onPressed: () {},
           style: ElevatedButton.styleFrom(
               minimumSize: Size(size.width * 0.9, 100),
-              primary: const Color(0xffed6762),
+              backgroundColor: appTheme.darkTheme
+                  ? appTheme.currentTheme.colorScheme.secondary
+                  : const Color(0xffed6762),
               shape: const RoundedRectangleBorder(
                   borderRadius:
                       BorderRadius.only(topLeft: Radius.circular(50)))),
-          child: const Text("CREATE NEW LIST",
+          child: Text("CREATE NEW LIST",
               style: TextStyle(
-                  color: Colors.white,
+                  color: appTheme.currentTheme.scaffoldBackgroundColor,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 3))),
@@ -59,17 +65,19 @@ class _MainScroll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return CustomScrollView(
       slivers: [
         SliverPersistentHeader(
             floating: true,
             delegate: _SliverCustomHeaderDelegate(
-                minHeight: 180,
-                maxHeight: 200,
+                minHeight: 195,
+                maxHeight: 220,
                 child: Container(
                   alignment: Alignment.centerLeft,
                   child: const _Titulo(),
-                  color: Colors.white,
+                  color: appTheme.currentTheme.scaffoldBackgroundColor,
                 ))),
         SliverList(
             delegate: SliverChildListDelegate([
@@ -118,15 +126,21 @@ class _Titulo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return Column(
       children: [
         const SizedBox(
           height: 30,
         ),
         Container(
-          margin: const EdgeInsets.only(left: 30, top: 25, right: 30),
-          child: const Text("New",
-              style: TextStyle(color: Color(0xff532128), fontSize: 50)),
+          margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+          child: Text("New",
+              style: TextStyle(
+                  color: appTheme.darkTheme
+                      ? Colors.grey
+                      : const Color(0xff532128),
+                  fontSize: 50)),
         ),
         Stack(
           children: [
@@ -134,11 +148,14 @@ class _Titulo extends StatelessWidget {
               width: 100,
             ),
             Positioned(
-              bottom: 8,
+              bottom: 16,
               child: Container(
-                width: 140,
+                width: 150,
                 height: 8,
-                decoration: const BoxDecoration(color: Color(0xfff7cdd5)),
+                decoration: BoxDecoration(
+                    color: appTheme.darkTheme
+                        ? Colors.grey
+                        : const Color(0xfff7cdd5)),
               ),
             ),
             const Text("List",
@@ -189,11 +206,13 @@ class _ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return Container(
       child: Text(
         titulo,
         style: const TextStyle(
-            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
+            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
       ),
       alignment: Alignment.centerLeft,
       padding: const EdgeInsets.all(30),

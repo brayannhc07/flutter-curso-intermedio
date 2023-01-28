@@ -1,16 +1,11 @@
-// import 'package:app_designs/pages/animaciones_page.dart';
-// import 'package:app_designs/labs/circular_progress_page.dart';
-// import 'package:app_designs/retos/cuadrado_animado_page.dart';
-// import 'package:app_designs/pages/graficas_circulares_page.dart';
-// import 'package:app_designs/pages/slideshow_page.dart';
-// import 'package:app_designs/pages/pinterest_page.dart';
-// import 'package:app_designs/pages/emergency_page.dart';
-
-import 'package:app_designs/pages/sliver_list_page.dart';
+import 'package:app_designs/pages/launcher_page.dart';
+import 'package:app_designs/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (_) => ThemeChanger(2), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -19,10 +14,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    final appTheme = Provider.of<ThemeChanger>(context);
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Diseños APP',
-      home: SliverListPage(),
+      theme: appTheme.currentTheme,
+      title: 'Diseños App',
+      home: const LauncherPage(),
     );
   }
 }
