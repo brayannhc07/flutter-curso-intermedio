@@ -16,12 +16,16 @@ class ThemeChanger with ChangeNotifier {
       case 1:
         _darkTheme = false;
         _customTheme = false;
-        _currentTheme = ThemeData.light(useMaterial3: true);
+        _currentTheme = ThemeData.light(useMaterial3: true).copyWith(
+            colorScheme:
+                const ColorScheme.light().copyWith(secondary: Colors.pink));
         break;
       case 2:
         _darkTheme = true;
         _customTheme = false;
-        _currentTheme = ThemeData.dark(useMaterial3: true);
+        _currentTheme = ThemeData.dark(useMaterial3: true).copyWith(
+            colorScheme:
+                const ColorScheme.light().copyWith(secondary: Colors.pink));
         break;
       case 3:
         _darkTheme = false;
@@ -36,8 +40,12 @@ class ThemeChanger with ChangeNotifier {
     _darkTheme = value;
 
     _currentTheme = value
-        ? ThemeData.dark(useMaterial3: true)
-        : ThemeData.light(useMaterial3: true);
+        ? ThemeData.dark(useMaterial3: true).copyWith(
+            colorScheme:
+                const ColorScheme.light().copyWith(secondary: Colors.pink))
+        : ThemeData.light(useMaterial3: true).copyWith(
+            colorScheme:
+                const ColorScheme.light().copyWith(secondary: Colors.pink));
 
     notifyListeners();
   }
@@ -53,7 +61,9 @@ class ThemeChanger with ChangeNotifier {
             primaryColorLight: Colors.white,
             scaffoldBackgroundColor: const Color(0xff16202B),
             colorScheme: const ColorScheme.dark(secondary: Color(0xff48A0EB)))
-        : ThemeData.light(useMaterial3: true);
+        : ThemeData.light(useMaterial3: true).copyWith(
+            colorScheme:
+                const ColorScheme.light().copyWith(secondary: Colors.pink));
 
     notifyListeners();
   }

@@ -13,6 +13,7 @@ class PinterestPage extends StatelessWidget {
       create: (_) => _MenuModel(),
       child: Scaffold(
           body: Stack(
+        alignment: Alignment.center,
         children: [PinterestGrid(), const _PinterestMenuLocation()],
       )
           // body: PinterestGrid(),
@@ -32,27 +33,22 @@ class _PinterestMenuLocation extends StatelessWidget {
     final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
 
     return Positioned(
-      child: SizedBox(
-        width: widthScreen,
-        child: Align(
-            child: PinterestMenu(
-          mostrar: mostrarMenu,
-          backgroundColor: appTheme.scaffoldBackgroundColor,
-          activeColor: appTheme.colorScheme.secondary,
-          items: [
-            PinterestButton(
-                onPressed: () => print("icon.pie_chart"),
-                icon: Icons.pie_chart),
-            PinterestButton(
-                onPressed: () => print("icon.search"), icon: Icons.search),
-            PinterestButton(
-                onPressed: () => print("icon.notifications"),
-                icon: Icons.notifications),
-            PinterestButton(
-                onPressed: () => print("icon.supervised_user_circle"),
-                icon: Icons.supervised_user_circle)
-          ],
-        )),
+      child: PinterestMenu(
+        mostrar: mostrarMenu,
+        backgroundColor: appTheme.scaffoldBackgroundColor,
+        activeColor: appTheme.colorScheme.secondary,
+        items: [
+          PinterestButton(
+              onPressed: () => print("icon.pie_chart"), icon: Icons.pie_chart),
+          PinterestButton(
+              onPressed: () => print("icon.search"), icon: Icons.search),
+          PinterestButton(
+              onPressed: () => print("icon.notifications"),
+              icon: Icons.notifications),
+          PinterestButton(
+              onPressed: () => print("icon.supervised_user_circle"),
+              icon: Icons.supervised_user_circle)
+        ],
       ),
       bottom: 30,
     );

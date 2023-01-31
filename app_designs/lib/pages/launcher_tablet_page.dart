@@ -1,3 +1,5 @@
+import 'package:app_designs/labs/slideshow_page.dart';
+import 'package:app_designs/models/layout_model.dart';
 import 'package:app_designs/routes/routes.dart';
 import 'package:app_designs/theme/theme.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,22 +7,40 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-class LauncherPage extends StatelessWidget {
-  const LauncherPage({Key? key}) : super(key: key);
+class LauncherTabletPage extends StatelessWidget {
+  const LauncherTabletPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final appTheme = Provider.of<ThemeChanger>(context);
+    final layoutModel = Provider.of<LayoutModel>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Diseños en Flutter - Teléfono",
+          "Diseños en Flutter - Tablet",
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: appTheme.currentTheme.colorScheme.secondary,
       ),
-      body: const _ListaOpciones(),
+      // body: const _ListaOpciones(),
+      body: Row(
+        children: [
+          Container(
+            width: 300,
+            height: double.infinity,
+            child: const _ListaOpciones(),
+          ),
+          Container(
+            width: 1,
+            height: double.infinity,
+            color: appTheme.darkTheme
+                ? Colors.grey
+                : appTheme.currentTheme.colorScheme.secondary,
+          ),
+          Expanded(child: layoutModel.currentPage)
+        ],
+      ),
       drawer: const _MenuPrincipal(),
     );
   }
@@ -45,8 +65,8 @@ class _ListaOpciones extends StatelessWidget {
         trailing:
             Icon(Icons.chevron_right, color: appTheme.colorScheme.secondary),
         onTap: () {
-          Navigator.push(context,
-              CupertinoPageRoute(builder: (context) => pageRoutes[index].page));
+          final layoutModel = Provider.of<LayoutModel>(context, listen: false);
+          layoutModel.currentPage = pageRoutes[index].page;
         },
       ),
     );
